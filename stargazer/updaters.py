@@ -15,9 +15,10 @@ AUTO_GENERATED_SEGMENT_FOOTER = '<!-- End auto-generated segment -->'
 
 
 class Updater:
-    def __init__(self, session: Session, site: pywikibot.Site):
+    def __init__(self, session: Session, site: pywikibot.Site, edit_summary: str):
         self.session = session
         self.site = site
+        self.edit_summary = edit_summary
         pass
 
 
@@ -85,10 +86,9 @@ class SpriteUpdater(Updater):
 
 
 class EntityUpdater(Updater):
-    def __init__(self, session: Session, site: pywikibot.Site, **kwargs):
-        super().__init__(session, site)
+    def __init__(self, session: Session, site: pywikibot.Site, edit_summary: str, **kwargs):
+        super().__init__(session, site, edit_summary)
         self.entities = kwargs.get('entities')
-        self.base_path = kwargs.get('base_path', '.')
 
 
     def run(self) -> None:
@@ -108,7 +108,7 @@ class EntityUpdater(Updater):
                     page = pywikibot.Page(self.site, page_name)
                     infobox_processor.process(page)
                     category_processor.process(page)
-                    page.put(page.text, f'stargazer: a66e644b10')
+                    page.put(page.text, f'stargazer: {self.edit_summary}')
                     self.session.commit()
             except Exception as e:
                 log.error(

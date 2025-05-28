@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import sys
@@ -10,15 +11,19 @@ from sqlalchemy.orm import Session
 from stargazer.entity import load_entities, EntityPrototype
 from stargazer.updaters import EntityUpdater
 
-BASE_PATH = 'E:/Development/SS14/Starcup/starcup'
-
-SOURCE_PATH = 'https://github.com/teamstarcup/starcup/blob/'
-COMMIT_HASH_SHORT = 'a66e644b10'
-
 log = logging.getLogger(__name__)
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        prog='stargazer',
+        description='Automatic wiki synchronization of SS14 info',
+        epilog='Home: https://github.com/teamstarcup/stargazer')
+
+    parser.add_argument('project_path', help='path to the root of the ss14 repository')
+    parser.add_argument('edit_summary', help='edit summary given for every modified page')
+    args = parser.parse_args()
+
     logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s',
                         level=logging.DEBUG,
                         stream=sys.stdout)
@@ -39,7 +44,7 @@ if __name__ == '__main__':
 
     # load entity prototypes
     log.info('Loading entity prototypes...')
-    entities: dict[str, EntityPrototype] = load_entities(BASE_PATH)
+    entities: dict[str, EntityPrototype] = load_entities(args.project_path)
     log.info(f'Loaded {len(entities)} entity prototypes!')
 
     # resolve entity inheritance
@@ -49,5 +54,5 @@ if __name__ == '__main__':
     log.info(f'Resolved entity inheritances!')
 
     log.info(f'Updating entities...')
-    entity_updater = EntityUpdater(session, site, entities=entities, base_path=BASE_PATH)
+    entity_updater = EntityUpdater(session, site, args.edit_summary, entities=entities)
     entity_updater.run()

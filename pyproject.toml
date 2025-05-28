@@ -1,0 +1,30 @@
+[project]
+name = "stargazer"
+version = "1.0.0"
+authors = [
+  { name="team starcup", email="204685920+little-meow-meow@users.noreply.github.com" },
+]
+description = "A tool for automatically synchronizing pages on the starcup wiki."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-3.0-only"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/teamstarcup/stargazer"
+Issues = "https://github.com/teamstarcup/stargazer/issues"
+
+[build-system]
+requires = [
+    "hatchling",
+    "pywikibot >= 10.1.0",
+    "ruamel.yaml >= 0.18.0",
+    "sqlalchemy >= 2.0.0",
+    "alembic >= 1.16.0",
+    "python-dotenv >= 1.1.0",
+]
+build-backend = "hatchling.build"
