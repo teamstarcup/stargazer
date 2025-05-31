@@ -14,14 +14,14 @@ load_dotenv()
 # access to the values within the .ini file in use.
 config = context.config
 
-DB_HOST = os.environ.get('STARGAZER_DB_HOST')
-DB_PORT = os.environ.get('STARGAZER_DB_PORT')
-DB_USER = os.environ.get('STARGAZER_DB_USER')
-DB_PASS = os.environ.get('STARGAZER_DB_PASS')
-DB_NAME = os.environ.get('STARGAZER_DB_NAME')
-DB_URL = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+DB_HOST = os.environ.get("STARGAZER_DB_HOST")
+DB_PORT = os.environ.get("STARGAZER_DB_PORT")
+DB_USER = os.environ.get("STARGAZER_DB_USER")
+DB_PASS = os.environ.get("STARGAZER_DB_PASS")
+DB_NAME = os.environ.get("STARGAZER_DB_NAME")
+DB_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-config.set_main_option('sqlalchemy.url', DB_URL)
+config.set_main_option("sqlalchemy.url", DB_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -33,6 +33,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from stargazer.models import Base
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -79,9 +80,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

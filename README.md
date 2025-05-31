@@ -1,5 +1,6 @@
 # stargazer
-![license-gpl-3.0-only](https://img.shields.io/badge/license-GPL--3.0--only-blue?label=license&link=https%3A%2F%2Fspdx.org%2Flicenses%2FGPL-3.0-only.html)
+[![license-gpl-3.0-only](https://img.shields.io/badge/license-GPL--3.0--only-blue?label=license)](https://spdx.org/licenses/GPL-3.0-only.html)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 stargazer is a tool for automating the creation and synchronization of Space Station 14-related pages on the 
 [starcup wiki](https://wiki.starcup.cc/).
